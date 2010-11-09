@@ -1,5 +1,7 @@
 package hu.advancedweb.dtoconverterutils.data.dto;
 
+import hu.advancedweb.dtoconverterutils.data.SampleEnum;
+
 import java.util.List;
 
 public class ParentObjectDto {
@@ -10,6 +12,8 @@ public class ParentObjectDto {
 	private List<ChildObjectDto>	children;
 
 	private ChildObjectDto			realChildKey;
+
+	private SampleEnum				testEnum;
 
 	public String getId() {
 		return id;
@@ -41,6 +45,14 @@ public class ParentObjectDto {
 
 	public void setRealChildKey(ChildObjectDto realChildKey) {
 		this.realChildKey = realChildKey;
+	}
+
+	public SampleEnum getTestEnum() {
+		return testEnum;
+	}
+
+	public void setTestEnum(SampleEnum testEnum) {
+		this.testEnum = testEnum;
 	}
 
 }

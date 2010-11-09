@@ -2,6 +2,7 @@ package hu.advancedweb.dtoconverterutils;
 
 import hu.advancedweb.dtoconverterutils.data.ChildObject;
 import hu.advancedweb.dtoconverterutils.data.ParentObject;
+import hu.advancedweb.dtoconverterutils.data.SampleEnum;
 import hu.advancedweb.dtoconverterutils.data.dto.ParentObjectDto;
 
 import java.util.ArrayList;
@@ -102,6 +103,17 @@ public class AppTest {
 		
 		Assert.assertEquals("1", dtolist.get(0).getId());
 		Assert.assertEquals("2", dtolist.get(1).getId());
+
+		Assert.assertEquals(SampleEnum.Value1, converter.convert(new ParentObject() {
+			{
+				setTestEnum(SampleEnum.Value1.toString());
+			}
+		}).getTestEnum());
+		Assert.assertEquals(SampleEnum.Value2, converter.convert(new ParentObject() {
+			{
+				setTestEnum(SampleEnum.Value2.toString());
+			}
+		}).getTestEnum());
 
 	}
 }

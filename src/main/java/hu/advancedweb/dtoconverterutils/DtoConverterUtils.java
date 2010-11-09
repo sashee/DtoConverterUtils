@@ -53,6 +53,11 @@ public class DtoConverterUtils implements Invoker {
 							}
 						} else if (m.getParameterTypes()[0].isAssignableFrom(getter.getReturnType())) {
 							m.invoke(target, getter.invoke(source));
+						} else if (Enum.class.isAssignableFrom(m.getParameterTypes()[0])) {
+							String value = (String) getter.invoke(source);
+							if (value != null) {
+								m.invoke(target, Enum.valueOf((Class<Enum>) m.getParameterTypes()[0], value));
+							}
 						} else {
 							Object converted = tryConvert(getter.invoke(source));
 							if (converted != null) {
@@ -157,6 +162,9 @@ public class DtoConverterUtils implements Invoker {
 		}
 	}
 
+	public static <T> T getConverter(final T a) {
+		return getConverter(a, null);
+	}
 	@SuppressWarnings("unchecked")
 	public static <T> T getConverter(final T a, KeyResolver resolver) {
 		DtoConverterUtils utils = new DtoConverterUtils(a, resolver);

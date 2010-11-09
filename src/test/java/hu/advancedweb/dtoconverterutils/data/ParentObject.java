@@ -12,6 +12,8 @@ public class ParentObject {
 
 	private String				childKey;
 
+	private String				testEnum;
+
 	public String getId() {
 		return id;
 	}
@@ -42,6 +44,14 @@ public class ParentObject {
 
 	public void setChildKey(String childKey) {
 		this.childKey = childKey;
+	}
+
+	public String getTestEnum() {
+		return testEnum;
+	}
+
+	public void setTestEnum(String testEnum) {
+		this.testEnum = testEnum;
 	}
 
 }
