@@ -2,8 +2,10 @@ package hu.advancedweb.dtoconverterutils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.proxy.Invoker;
@@ -130,12 +132,16 @@ public class DtoConverterUtils implements Invoker {
 				} catch (InvocationTargetException ite) {
 					if (ite.getCause() != null && ite.getCause() instanceof NoSpecialConversionException) {
 						try {
-						result = arg1.getReturnType().newInstance();
+							result = arg1.getReturnType().newInstance();
 						} catch (InstantiationException ie) {
 							try {
-							result = arg2[0].getClass().newInstance();
+								result = arg2[0].getClass().newInstance();
 							} catch (InstantiationException ie2) {
-								result = arg2[0].getClass().getSuperclass().newInstance();
+								if (arg1.getReturnType() == List.class) {
+									result = new ArrayList();
+								} else {
+									result = arg2[0].getClass().getSuperclass().newInstance();
+								}
 							}
 						}
 						if (result instanceof Collection) {
@@ -165,6 +171,7 @@ public class DtoConverterUtils implements Invoker {
 	public static <T> T getConverter(final T a) {
 		return getConverter(a, null);
 	}
+
 	@SuppressWarnings("unchecked")
 	public static <T> T getConverter(final T a, KeyResolver resolver) {
 		DtoConverterUtils utils = new DtoConverterUtils(a, resolver);

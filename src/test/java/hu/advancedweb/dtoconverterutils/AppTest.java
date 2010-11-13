@@ -6,8 +6,11 @@ import hu.advancedweb.dtoconverterutils.data.SampleEnum;
 import hu.advancedweb.dtoconverterutils.data.dto.ParentObjectDto;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 
 import junit.framework.Assert;
@@ -79,7 +82,7 @@ public class AppTest {
 		Assert.assertEquals("list1", dto.getChildren().get(0).getId());
 		Assert.assertEquals("list2", dto.getChildren().get(1).getId());
 		Assert.assertEquals("referenced", dto.getRealChildKey().getId());
-		
+
 		Assert.assertEquals(null, converter.convert(new ParentObject() {
 			{
 				setId("5");
@@ -100,7 +103,7 @@ public class AppTest {
 				});
 			}
 		});
-		
+
 		Assert.assertEquals("1", dtolist.get(0).getId());
 		Assert.assertEquals("2", dtolist.get(1).getId());
 
@@ -115,5 +118,160 @@ public class AppTest {
 			}
 		}).getTestEnum());
 
+		Assert.assertEquals("uncreateablelist1", ((List<ParentObjectDto>) converter.convert(new NoNullArgConstructorList<ParentObject>(new ArrayList<ParentObject>() {
+			{
+				add(new ParentObject() {
+					{
+						setId("uncreateablelist1");
+					}
+				});
+			}
+		}))).get(0).getId());
+	}
+
+	private class NoNullArgConstructorList<E> implements List<E> {
+
+		List	_list;
+
+		public <F> NoNullArgConstructorList(List arg) {
+			_list = arg;
+		}
+
+		@Override
+		public int size() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public boolean isEmpty() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean contains(Object paramObject) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public Iterator<E> iterator() {
+			return _list.iterator();
+		}
+
+		@Override
+		public Object[] toArray() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public <T> T[] toArray(T[] paramArrayOfT) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public boolean add(E paramE) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean remove(Object paramObject) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean containsAll(Collection<?> paramCollection) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean addAll(Collection<? extends E> paramCollection) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean addAll(int paramInt, Collection<? extends E> paramCollection) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean removeAll(Collection<?> paramCollection) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean retainAll(Collection<?> paramCollection) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public void clear() {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public E get(int paramInt) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public E set(int paramInt, E paramE) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public void add(int paramInt, E paramE) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public E remove(int paramInt) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public int indexOf(Object paramObject) {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public int lastIndexOf(Object paramObject) {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public ListIterator<E> listIterator() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public ListIterator<E> listIterator(int paramInt) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public List<E> subList(int paramInt1, int paramInt2) {
+			// TODO Auto-generated method stub
+			return null;
+		}
 	}
 }
