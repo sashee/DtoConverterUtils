@@ -1,5 +1,7 @@
 package hu.advancedweb.dtoconverterutils;
 
+import hu.advancedweb.dtoconverterutils.annotations.SpecialConverter;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -39,7 +41,9 @@ public class DtoConverterUtils implements Invoker {
 					} catch (NoSuchMethodException nsme) {
 					}
 					if (getter != null) {
-						if (Collection.class.isAssignableFrom(getter.getReturnType())) {
+						if(m.getAnnotation(SpecialConverter.class)!=null){
+							m.invoke(target, m.getAnnotation(SpecialConverter.class).value().newInstance().convert(getter.invoke(source)));
+						}else if (Collection.class.isAssignableFrom(getter.getReturnType())) {
 							Collection<?> c = (Collection<?>) getter.invoke(source);
 							if (c != null) {
 								Collection collection = null;

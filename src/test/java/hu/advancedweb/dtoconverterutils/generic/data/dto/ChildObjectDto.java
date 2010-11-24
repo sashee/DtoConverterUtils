@@ -1,4 +1,4 @@
-package hu.advancedweb.dtoconverterutils.data.dto;
+package hu.advancedweb.dtoconverterutils.generic.data.dto;
 
 
 public class ChildObjectDto {

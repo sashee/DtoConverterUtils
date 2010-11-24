@@ -1,9 +1,11 @@
-package hu.advancedweb.dtoconverterutils;
+package hu.advancedweb.dtoconverterutils.generic;
 
-import hu.advancedweb.dtoconverterutils.data.ChildObject;
-import hu.advancedweb.dtoconverterutils.data.ParentObject;
-import hu.advancedweb.dtoconverterutils.data.SampleEnum;
-import hu.advancedweb.dtoconverterutils.data.dto.ParentObjectDto;
+import hu.advancedweb.dtoconverterutils.DtoConverterUtils;
+import hu.advancedweb.dtoconverterutils.KeyResolver;
+import hu.advancedweb.dtoconverterutils.generic.data.ChildObject;
+import hu.advancedweb.dtoconverterutils.generic.data.ParentObject;
+import hu.advancedweb.dtoconverterutils.generic.data.SampleEnum;
+import hu.advancedweb.dtoconverterutils.generic.data.dto.ParentObjectDto;
 
 import java.util.ArrayList;
 import java.util.Collection;

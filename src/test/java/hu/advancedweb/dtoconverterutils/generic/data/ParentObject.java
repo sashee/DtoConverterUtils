@@ -1,4 +1,4 @@
-package hu.advancedweb.dtoconverterutils.data;
+package hu.advancedweb.dtoconverterutils.generic.data;
 
 import java.util.List;
 

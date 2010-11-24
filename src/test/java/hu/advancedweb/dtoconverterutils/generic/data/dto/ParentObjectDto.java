@@ -1,6 +1,6 @@
-package hu.advancedweb.dtoconverterutils.data.dto;
+package hu.advancedweb.dtoconverterutils.generic.data.dto;
 
-import hu.advancedweb.dtoconverterutils.data.SampleEnum;
+import hu.advancedweb.dtoconverterutils.generic.data.SampleEnum;
 
 import java.util.List;
 
