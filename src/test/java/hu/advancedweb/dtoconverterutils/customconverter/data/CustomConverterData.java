@@ -12,6 +12,8 @@ public class CustomConverterData {
 	
 	private String toBase64DecodedStringArray;
 
+	private String	namedConverterValue;
+
 	public String getId() {
 		return id;
 	}
@@ -50,6 +52,14 @@ public class CustomConverterData {
 
 	public void setToBase64DecodedStringArray(String toBase64DecodedStringArray) {
 		this.toBase64DecodedStringArray = toBase64DecodedStringArray;
+	}
+
+	public String getNamedConverterValue() {
+		return namedConverterValue;
+	}
+
+	public void setNamedConverterValue(String namedConverterValue) {
+		this.namedConverterValue = namedConverterValue;
 	}
 	
 }

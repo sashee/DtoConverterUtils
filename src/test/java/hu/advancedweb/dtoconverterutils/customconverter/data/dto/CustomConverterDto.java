@@ -1,22 +1,25 @@
 package hu.advancedweb.dtoconverterutils.customconverter.data.dto;
 
 import hu.advancedweb.dtoconverterutils.annotations.SpecialConverter;
+import hu.advancedweb.dtoconverterutils.annotations.predefinedconverters.Base64DecodedStringArray;
 import hu.advancedweb.dtoconverterutils.customconverter.StringTrimmerSpecialFieldConverter;
-import hu.advancedweb.dtoconverterutils.customconverter.ToBase64DecodedStringArraySpecialFieldConverter;
+import hu.advancedweb.dtoconverterutils.customconverter.TestNamedSpecialConverter;
 import hu.advancedweb.dtoconverterutils.customconverter.ToIntSpecialFieldConverter;
 import hu.advancedweb.dtoconverterutils.customconverter.ToStringArraySpecialFieldConverter;
 
 public class CustomConverterDto {
-	
-	private String trimString;
-	
-	
-	private int toIntString;
-	
-	
-	private String[] toStringArray;
-	
-	private String[] toBase64DecodedStringArray;
+
+	private String		trimString;
+
+	@SpecialConverter(ToIntSpecialFieldConverter.class)
+	private int			toIntString;
+
+	private String[]	toStringArray;
+
+	@Base64DecodedStringArray
+	private String[]	toBase64DecodedStringArray;
+
+	private int			namedConverterValue;
 
 	public String getTrimString() {
 		return trimString;
@@ -31,7 +34,6 @@ public class CustomConverterDto {
 		return toIntString;
 	}
 
-	@SpecialConverter(ToIntSpecialFieldConverter.class)
 	public void setToIntString(int toIntString) {
 		this.toIntString = toIntString;
 	}
@@ -49,10 +51,17 @@ public class CustomConverterDto {
 		return toBase64DecodedStringArray;
 	}
 
-	@SpecialConverter(ToBase64DecodedStringArraySpecialFieldConverter.class)
 	public void setToBase64DecodedStringArray(String[] toBase64DecodedStringArray) {
 		this.toBase64DecodedStringArray = toBase64DecodedStringArray;
 	}
-	
-	
+
+	public int getNamedConverterValue() {
+		return namedConverterValue;
+	}
+
+	@TestNamedSpecialConverter
+	public void setNamedConverterValue(int namedConverterValue) {
+		this.namedConverterValue = namedConverterValue;
+	}
+
 }

@@ -2,13 +2,16 @@ package hu.advancedweb.dtoconverterutils;
 
 import hu.advancedweb.dtoconverterutils.annotations.SpecialConverter;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.proxy.Invoker;
 import org.apache.commons.proxy.factory.cglib.CglibProxyFactory;
@@ -41,9 +44,10 @@ public class DtoConverterUtils implements Invoker {
 					} catch (NoSuchMethodException nsme) {
 					}
 					if (getter != null) {
-						if(m.getAnnotation(SpecialConverter.class)!=null){
-							m.invoke(target, m.getAnnotation(SpecialConverter.class).value().newInstance().convert(getter.invoke(source)));
-						}else if (Collection.class.isAssignableFrom(getter.getReturnType())) {
+						SpecialFieldConverter specialFieldConverter = findSpecialConverterAnnotation(target, m);
+						if (specialFieldConverter != null) {
+							m.invoke(target, specialFieldConverter.convert(getter.invoke(source)));
+						} else if (Collection.class.isAssignableFrom(getter.getReturnType())) {
 							Collection<?> c = (Collection<?>) getter.invoke(source);
 							if (c != null) {
 								Collection collection = null;
@@ -85,6 +89,42 @@ public class DtoConverterUtils implements Invoker {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	private Set<Class<? extends Annotation>>	checkedAnnotations	= new HashSet<Class<? extends Annotation>>();
+
+	private SpecialFieldConverter findSpecialConverterAnnotation(Object o, Method m) throws Exception {
+		try {
+			try {
+				SpecialFieldConverter conv = findSpecialFieldConverterAnnotation(o.getClass().getDeclaredField(m.getName().substring(3, 4).toLowerCase() + m.getName().substring(4)).getAnnotations());
+				if (conv != null) {
+					return conv;
+				}
+			} catch (NoSuchFieldException nsfe) {
+				return null;
+			}
+			return findSpecialFieldConverterAnnotation(m.getAnnotations());
+		} finally {
+			checkedAnnotations.clear();
+		}
+	}
+
+	private SpecialFieldConverter findSpecialFieldConverterAnnotation(Annotation[] annotations) throws Exception {
+		for (Annotation a : annotations) {
+			if (checkedAnnotations.contains(a.annotationType())) {
+				continue;
+			}
+			checkedAnnotations.add(a.annotationType());
+			if (a.annotationType() == SpecialConverter.class) {
+				return ((SpecialConverter) a).value().newInstance();
+			} else {
+				SpecialFieldConverter conv = findSpecialFieldConverterAnnotation(a.annotationType().getAnnotations());
+				if (conv != null) {
+					return conv;
+				}
+			}
+		}
+		return null;
 	}
 
 	private Object findId(Object o) {
