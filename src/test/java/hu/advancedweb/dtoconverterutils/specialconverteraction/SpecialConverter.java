@@ -7,6 +7,8 @@ import hu.advancedweb.dtoconverterutils.specialconverteraction.data.SpecialConve
 import hu.advancedweb.dtoconverterutils.specialconverteraction.data.dto.SpecialConverterDataDto;
 import hu.advancedweb.dtoconverterutils.specialconverteraction.data.dto.SpecialConverterWithExceptionDto;
 
+import java.util.List;
+
 public class SpecialConverter {
 	public SpecialConverterDataDto convert(SpecialConverterData o) {
 		throw new NoSpecialConversionException();
@@ -19,5 +21,9 @@ public class SpecialConverter {
 				source.setTripleData(source.getData() + source.getData() + source.getData());
 			}
 		});
+	}
+
+	public List<?> convert(List<?> l) {
+		throw new NoSpecialConversionException();
 	}
 }

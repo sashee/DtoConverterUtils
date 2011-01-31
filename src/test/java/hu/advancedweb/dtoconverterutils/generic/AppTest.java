@@ -131,7 +131,7 @@ public class AppTest {
 		}))).get(0).getId());
 	}
 
-	private class NoNullArgConstructorList<E> implements List<E> {
+	public static class NoNullArgConstructorList<E> implements List<E> {
 
 		List	_list;
 
