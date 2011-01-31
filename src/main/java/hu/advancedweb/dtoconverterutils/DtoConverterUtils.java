@@ -1,5 +1,6 @@
 package hu.advancedweb.dtoconverterutils;
 
+import hu.advancedweb.dtoconverterutils.annotations.AfterCreate;
 import hu.advancedweb.dtoconverterutils.annotations.SpecialConverter;
 
 import java.lang.annotation.Annotation;
@@ -199,6 +200,10 @@ public class DtoConverterUtils implements Invoker {
 					} else {
 						throw ite;
 					}
+				}
+				AfterCreate afterCreate = result.getClass().getAnnotation(AfterCreate.class);
+				if (afterCreate != null) {
+					afterCreate.value().newInstance().afterCreate(result);
 				}
 				return result;
 			} finally {
