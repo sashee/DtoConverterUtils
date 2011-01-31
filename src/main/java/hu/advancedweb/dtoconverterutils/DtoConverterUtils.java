@@ -197,6 +197,9 @@ public class DtoConverterUtils implements Invoker {
 						} else {
 							copyProperties(arg2[0], result);
 						}
+						if (((NoSpecialConversionException) ite.getCause()).getAfterCreateConverter() != null) {
+							((NoSpecialConversionException) ite.getCause()).getAfterCreateConverter().afterCreate(result);
+						}
 					} else {
 						throw ite;
 					}
