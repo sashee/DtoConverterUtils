@@ -187,6 +187,12 @@ public class DtoConverterUtils implements Invoker {
 								} else {
 									result = arg2[0].getClass().getSuperclass().newInstance();
 								}
+							}catch(IllegalAccessException iae){
+								if (arg1.getReturnType() == List.class) {
+									result = new ArrayList();
+								} else {
+									result = arg2[0].getClass().getSuperclass().newInstance();
+								}
 							}
 						}
 						if (result instanceof Collection) {
